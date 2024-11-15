@@ -5,3 +5,6 @@
 	path = src/detect/src/detectors/shen-ReScue
 	url = https://github.com/davisjam/ReScue
 	branch = SupportForVRD
+[submodule "src/detect/src/detectors/mclaughlin-regulator"]
+	path = src/detect/src/detectors/mclaughlin-regulator
+	url = https://github.com/ucsb-seclab/regulator-dynamic.git
