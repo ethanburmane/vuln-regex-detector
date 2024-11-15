@@ -8,3 +8,9 @@
 [submodule "src/detect/src/detectors/mclaughlin-regulator"]
 	path = src/detect/src/detectors/mclaughlin-regulator
 	url = https://github.com/ucsb-seclab/regulator-dynamic.git
+[submodule "src/detect/src/detectors/hong-EvilStrGen"]
+	path = src/detect/src/detectors/hong-EvilStrGen
+	url = https://github.com/Anonymous89813/EvilStrGen.git
+[submodule "src/detect/src/detectors/li-ReDoSHunter"]
+	path = src/detect/src/detectors/li-ReDoSHunter
+	url = https://github.com/yetingli/ReDoSHunter.git
