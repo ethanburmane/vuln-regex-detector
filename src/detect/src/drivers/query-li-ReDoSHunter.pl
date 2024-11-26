@@ -54,12 +54,12 @@ print STDERR "CLEANUP: $tmpFile\n"; # If we time out, the parent can clean up fo
 
 # Run ReDoSHunter
 my $jvmNoDumpFlags = ""; # TODO Is there a portable way to do this? "-XXnoJrDump -XXdumpSize:none"; # Disable crash files (generated if ulimit on memory exceeded).
-my $cmdString = "java $jvmNoDumpFlags -jar $ReDoSHunterDir/target/ReDoSHunter-1.0.0.jar $filePath $fileName";
+my $cmdString = "cd $ReDoSHunterDir && java $jvmNoDumpFlags -jar $ReDoSHunterDir/target/ReDoSHunter-1.0.0.jar $filePath $fileName";
 my ($rc, $out) = &cmd("$cmdString 2>&1");
 unlink $tmpFile;
 
 # Read results
-my $resDir = 'data/expr';
+my $resDir = "$ReDoSHunterDir/data/expr";
 my $result = "";
 my ($resFile) = bsd_glob("$resDir/*redos_s_java*");
 if ($resFile) {
@@ -83,8 +83,14 @@ if ($result =~ m/.*RESULT-TRUE.*/s) {
   }
   $opinion->{evilInput} = \@attack_strings;
 } elsif ($result =~ m/.*RESULT-FALSE.*/s) {
-  $opinion->{canAnalyze} = 1;
-  $opinion->{isSafe} = "YES";
+  if ($result =~ m/.*TIME-OUT.*/s) {
+    $opinion->{canAnalyze} = 0;
+    $opinion->{isSafe} = "UNKNOWN";
+    $opinion->{evilInput} = ["TIME-OUT"];
+  } else {
+    $opinion->{canAnalyze} = 1;
+    $opinion->{isSafe} = "YES";
+  }
 } else {
   $opinion->{canAnalyze} = 0;
   $opinion->{isSafe} = "UNKNOWN";
