@@ -61,8 +61,10 @@ unlink $tmpFile;
 # Parse to determine opinion
 my $opinion = { };
 
+print STDOUT &cmd("ls $tmpOutputDir");
+
 # Check if EvilStrGen detected ReDoS
-if ($out =~ m/(.+)has redos\n/) {
+if ($out =~ m/writing file\n/) {
   # Initialize an array to store all attack strings
   my @attackStrings;
   
